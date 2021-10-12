@@ -53,5 +53,10 @@ public class HomeController {
 	@RequestMapping(value = "/popup/jusoPopup", method = RequestMethod.POST)
 	public void postPopup(Model model) {
 	}
-	
+
+	@RequestMapping(value = "/showMap", method = RequestMethod.GET)
+	public String getShowMap(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/showMap";
+	}
 }

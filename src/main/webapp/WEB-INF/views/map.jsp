@@ -12,6 +12,10 @@
             var pop = window.open("/popup/jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes");
         }
 
+        function goShowMap(){
+            var showMap = window.open("/showMap");
+        }
+
 
         function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo,entX,entY){
             // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
@@ -52,7 +56,8 @@
 <body>
 <form name="form" id="form" method="post">
 
-    <input type="button" onClick="goPopup();" value="팝업_domainChk"/>
+    <input type="button" onClick="goPopup();" value="주소검색"/>
+    <input type="button" onClick="goShowMap();" value="지도에 표시"/>
     <div id="list"></div>
     <div id="callBackDiv">
         <table>

@@ -19,7 +19,6 @@
         String rnMgtSn = request.getParameter("rnMgtSn");
         String bdMgtSn  = request.getParameter("bdMgtSn");
         String detBdNmList  = request.getParameter("detBdNmList");
-        /** 2017년 2월 추가제공 **/
         String bdNm  = request.getParameter("bdNm");
         String bdKdcd  = request.getParameter("bdKdcd");
         String siNm  = request.getParameter("siNm");
@@ -33,8 +32,9 @@
         String mtYn  = request.getParameter("mtYn");
         String lnbrMnnm  = request.getParameter("lnbrMnnm");
         String lnbrSlno  = request.getParameter("lnbrSlno");
-        /** 2017년 3월 추가제공 **/
         String emdNo  = request.getParameter("emdNo");
+        String entX  = request.getParameter("entX");
+        String entY  = request.getParameter("entY");
 
     %>
 </head>
@@ -43,24 +43,23 @@
     //document.domain = "abc.go.kr";
 
     /*
-            모의 해킹 테스트 시 팝업API를 호출하시면 IP가 차단 될 수 있습니다.
-            주소팝업API를 제외하시고 테스트 하시기 바랍니다.
+                모의 해킹 테스트 시 팝업API를 호출하시면 IP가 차단 될 수 있습니다.
+                주소팝업API를 제외하시고 테스트 하시기 바랍니다.
     */
 
     function init(){
         var url = location.href;
-        var confmKey = "devU01TX0FVVEgyMDIxMTAxMjE2NTAwNjExMTc1MDI=";
+        var confmKey = "devU01TX0FVVEgyMDIxMTAxMjE4MTEwMTExMTc1MDg=";
         var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번+상세보기(관련지번, 관할주민센터), 3 : 도로명+상세보기(상세건물명), 4 : 도로명+지번+상세보기(관련지번, 관할주민센터, 상세건물명)
         var inputYn= "<%=inputYn%>";
         if(inputYn != "Y"){
             document.form.confmKey.value = confmKey;
             document.form.returnUrl.value = url;
             document.form.resultType.value = resultType;
-            document.form.action="https://www.juso.go.kr/addrlink/addrLinkUrl.do"; //인터넷망
-            //document.form.action="https://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
+            document.form.action="https://www.juso.go.kr/addrlink/addrCoordUrl.do"; //인터넷망
             document.form.submit();
         }else{
-            opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>");
+            opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>", "<%=entX%>", "<%=entY%>");
             window.close();
         }
     }
