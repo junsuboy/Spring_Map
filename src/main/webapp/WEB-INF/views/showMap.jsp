@@ -10,6 +10,7 @@
 <head>
     <title>지도</title>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="resources/jquery/jquery-1.11.3.min.js"></script>
 
     <!-- openlayers -->
@@ -17,7 +18,6 @@
     <script src="resources/openlayers/ol.js"></script>
 
     <script src="resources/js/proj4.js"></script>
-
     <!--  지도 스타일 -->
     <style type="text/css">
         #map {
@@ -43,9 +43,8 @@
             border-right:none;
         }
     </style>
-
 </head>
-<body>
+<body onload="setPoint()">
 
 <div id="content_wp">
     <div id="content">
@@ -55,6 +54,7 @@
         </div>
         <input id="base-layer" type="button" value="지도" onclick="baseChange('satellite')">
         <input type="button" value="포인트" onclick="mapSubmit()">
+        <input type="button" value="좌표" onclick="specialPoint()">
 
         <table class="list_t1" id="gisTable">
             <tr>
@@ -63,11 +63,23 @@
                 <th>위도</th>
             </tr>
         </table>
+        <%
+            request.setCharacterEncoding("UTF-8");
+            String xxx = request.getParameter("xxx");
+            String yyy = request.getParameter("yyy");
+        %>
+        <input type="hidden" id="superX" name="superX" value="<%=xxx %>"/>
+        <input type="hidden" id="superY" name="superY" value="<%=yyy %>"/>
     </div>
 </div>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.2/proj4.js"></script>
 <script type="text/javascript" src="http://map.vworld.kr/js/vworldMapInit.js.do?version=2.0&apiKey=[2F7145AA-5256-36DA-94D6-A7EDAF9E96AD]"></script>
 <script>
+
+    function setPoint(){
+    }
+
     // 지도
     var layers = {};
     layers['vworld'] = new ol.layer.Tile({
@@ -156,6 +168,47 @@
         coord.svy_longi = 126.175860;
         coord.svy_lati = 37.211874;
         data.push(coord);
+
+
+        var coord = new Object();
+        coord.svy_name = "준수네 집";
+        coord.svy_longi = 127.08127009081817;
+        coord.svy_lati = 37.50443488233795;
+        data.push(coord);
+
+
+        // get
+
+        svyData = data;
+        var jsonData = JSON.stringify(data) ;
+
+        addFeatures();
+    }
+
+    function specialPoint(){
+        var superX = document.getElementById("superX").value;
+        var superY = document.getElementById("superY").value;
+
+        var hyperX = parseFloat(superX);
+        var hyperY = parseFloat(superY);
+        console.log(superX,superY);
+        console.log(hyperX,hyperY);
+
+        proj4.defs["EPSG:5179"] = "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs";//제공되는 좌표
+
+        var grs80 = proj4.Proj(proj4.defs["EPSG:5179"])
+        var wgs84 = proj4.Proj(proj4.defs["EPSG:4326"]); //경위도
+
+        var p = proj4.Point( hyperX , hyperY );//한국지역정보개발원 좌표
+        p = proj4.transform( grs80, wgs84, p);
+
+        var data = new Array();
+        var coord = new Object();
+        coord.svy_name = "그 포인트가 여기";
+        coord.svy_longi = p.x;
+        coord.svy_lati = p.y;
+        data.push(coord);
+
         // get
 
         svyData = data;
@@ -287,6 +340,8 @@
         n = n + '';
         return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
     }
+
+
 
 </script>
 </body>

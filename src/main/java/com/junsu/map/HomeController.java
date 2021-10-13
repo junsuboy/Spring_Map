@@ -42,6 +42,11 @@ public class HomeController {
 		// model.addAttribute("serverTime", formattedDate );
 		return "/map";
 	}
+	@RequestMapping(value = "/map", method = RequestMethod.POST)
+	public String postMap(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/map";
+	}
 
 
 	@RequestMapping(value = "/popup/jusoPopup", method = RequestMethod.GET)
@@ -59,4 +64,31 @@ public class HomeController {
 		// model.addAttribute("serverTime", formattedDate );
 		return "/showMap";
 	}
+
+	@RequestMapping(value = "/showMap", method = RequestMethod.POST)
+	public String postShowMap(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/showMap";
+	}
+
+
+	@RequestMapping(value = "/1", method = RequestMethod.GET)
+	public String get1(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/1";
+	}
+
+
+	@RequestMapping(value = "/2", method = RequestMethod.GET)
+	public String get2(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/2";
+	}
+
+	@RequestMapping(value = "/2", method = RequestMethod.POST)
+	public String post2(Model model) {
+		// model.addAttribute("serverTime", formattedDate );
+		return "/2";
+	}
+
 }
